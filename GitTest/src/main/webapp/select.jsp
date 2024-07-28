@@ -1,4 +1,4 @@
-<%@page import="com.aischool.model.WebMember"%>
+<%@ page import="com.aischool.model.WebMember"%>
 <%@ page import="com.select.place_info" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.select.placeDAO" %>
@@ -6,6 +6,8 @@
 
 <%
 String region = request.getParameter("region");
+String startDate = request.getParameter("startDate");
+String endDate = request.getParameter("endDate");
 placeDAO dao = new placeDAO();
 ArrayList<place_info> places = dao.getPlacesByRegion(region);
 request.setAttribute("places", places);
@@ -26,22 +28,20 @@ WebMember member =  (WebMember) session.getAttribute("logindata");
         return;
     }
     %>
-     <style>
-	    <% if (region.equals("yeosu")){ %>
-			.item-link2{border: 3px lightgray solid;}
-			.item-link{border: none;}
-			.item-link1{border: none;}
-
-    	<%}else if (region.equals("yangyang")){%>
-			.item-link1{border: 3px lightgray solid;}
-			.item-link{border: none;}
-			.item-link2{border: none;}
-    	<%}else{%>
-			.item-link{border: 3px lightgray solid;}
-			.item-link1{border: none;}
-			.item-link2{border: none;}
-    	<%}%>
-    	
+    <style>
+        <% if (region.equals("yeosu")){ %>
+            .item-link2{border: 3px lightgray solid;}
+            .item-link{border: none;}
+            .item-link1{border: none;}
+        <%} else if (region.equals("yangyang")){%>
+            .item-link1{border: 3px lightgray solid;}
+            .item-link{border: none;}
+            .item-link2{border: none;}
+        <%} else {%>
+            .item-link{border: 3px lightgray solid;}
+            .item-link1{border: none;}
+            .item-link2{border: none;}
+        <%}%>
     </style>
     <script type="text/javascript">
     var placesCount = 8;  // 총 아이템 수
@@ -71,7 +71,7 @@ WebMember member =  (WebMember) session.getAttribute("logindata");
         var height = 800;
         var left = (screen.width - width) / 2;
         var top = (screen.height - height) / 2;
-        var url = "popup.jsp?placeName=" + encodeURIComponent(placeName) + "&region=" + "<%= region %>";
+        var url = "popup.jsp?placeName=" + encodeURIComponent(placeName) + "&region=" + "<%= region %>" + "&startDate=" + "<%= startDate %>" + "&endDate=" + "<%= endDate %>";
         var name = "popupWindow";
         var specs = "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top + ",scrollbars=yes";
         window.open(url, name, specs);
@@ -80,7 +80,6 @@ WebMember member =  (WebMember) session.getAttribute("logindata");
     document.addEventListener('DOMContentLoaded', function() {
         showItems(currentIndex);
     });
-    
     
     </script>
     

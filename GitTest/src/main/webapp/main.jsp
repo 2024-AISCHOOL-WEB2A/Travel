@@ -5,6 +5,7 @@
 <%
 WebMember member = (WebMember) session.getAttribute("logindata");
 String errorMsg = (String) request.getAttribute("errorMsg");
+
 %>
 
 <!DOCTYPE html>
@@ -24,47 +25,55 @@ String errorMsg = (String) request.getAttribute("errorMsg");
 <title>Main page</title>
 <script>
 	function goToSelect() {
-		let selectedRegion = 'busan'; // 기본값
-		  if (document.getElementById("item1").style.border.includes("solid")) {
-		    selectedRegion = 'yangyang';
-		  } else if (document.getElementById("item2").style.border.includes("solid")) {
-		    selectedRegion = 'busan';
-		  } else if (document.getElementById("item3").style.border.includes("solid")) {
-		    selectedRegion = 'yeosu';
-		  }
-		  window.location.href = 'select.jsp?region=' + selectedRegion;
-		}
+    let selectedRegion = 'busan'; // 기본값
+    if (document.getElementById("item1").style.border.includes("solid")) {
+        selectedRegion = 'yangyang';
+    } else if (document.getElementById("item2").style.border.includes("solid")) {
+        selectedRegion = 'busan';
+    } else if (document.getElementById("item3").style.border.includes("solid")) {
+        selectedRegion = 'yeosu';
+    }
+
+    let startDate = document.querySelector('.date-buttons input[type="date"]').value;
+    let endDate = document.querySelector('.date-buttons1 input[type="date"]').value;
+
+    if (!startDate || !endDate) {
+        alert('여행 시작일과 종료일을 모두 선택해주세요.');
+        return;
+    }
+
+    window.location.href = 'select.jsp?region=' + selectedRegion + '&startDate=' + startDate + '&endDate=' + endDate;
+	}
+	
+	function select1() {
+		let item1 = document.getElementById("item1");
+		item1.style.border = "3.5px var(--color-cadetblue-100) solid";
+		console.log("Yanyang");
+		item2.style.border = "white"
+		item3.style.border = "white"
+	}
+
+	function select2() {
+		let item2 = document.getElementById("item2");
+		item2.style.border = "3.5px var(--color-cadetblue-100) solid";
+		console.log("Busan");
+		item1.style.border = "white"
+		item3.style.border = "white"
+	}
+
+	function select3() {
+		let item3 = document.getElementById("item3");
+		item3.style.border = "3.5px var(--color-cadetblue-100) solid";
+		console.log("Yeosu");
+		item1.style.border = "white"
+		item2.style.border = "white"
+	}
 </script>
 </head>
 
 
 
 <body>
-	<script>
-		function select1() {
-			let item1 = document.getElementById("item1");
-			item1.style.border = "3.5px var(--color-cadetblue-100) solid";
-			console.log("Yanyang");
-			item2.style.border = "white"
-			item3.style.border = "white"
-		}
-
-		function select2() {
-			let item2 = document.getElementById("item2");
-			item2.style.border = "3.5px var(--color-cadetblue-100) solid";
-			console.log("Busan");
-			item1.style.border = "white"
-			item3.style.border = "white"
-		}
-
-		function select3() {
-			let item3 = document.getElementById("item3");
-			item3.style.border = "3.5px var(--color-cadetblue-100) solid";
-			console.log("Yeosu");
-			item1.style.border = "white"
-			item2.style.border = "white"
-		}
-	</script>
 	<div class="root">
 		<header class="header">
 			<div class="trip-planner">

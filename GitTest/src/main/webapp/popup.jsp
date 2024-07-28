@@ -6,6 +6,8 @@
 <%
 String placeName = request.getParameter("placeName");
 String region = request.getParameter("region");
+String startDate = request.getParameter("startDate");
+String endDate = request.getParameter("endDate");
 
 // 디버깅을 위해 파라미터 값을 로그로 출력
 System.out.println("Received placeName: " + placeName);

@@ -19,18 +19,15 @@ public class getPlace extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 요청 파라미터로 지역 이름을 받음
 		String region = request.getParameter("region");
-		System.out.println("Region: " + region); //region 값 오는지 확인
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
 
-		placeDAO dao = new placeDAO();
+        request.setAttribute("region", region);
+        request.setAttribute("startDate", startDate);
+        request.setAttribute("endDate", endDate);
 
-		ArrayList<place_info> list = dao.getPlacesByRegion(region);
-
-		request.setAttribute("places", list);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("select.jsp");
-		rd.forward(request, response);
-
+        RequestDispatcher dispatcher = request.getRequestDispatcher("add.jsp");
+        dispatcher.forward(request, response);
 	}
 }
